@@ -1,0 +1,140 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    
+}
+
+.formarea{
+    background: #DDE2A6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formarea_wrapper{
+    margin: auto 0;
+}
+
+.button_as_liver, .button_as_manegment{
+    font-size: 2vw;
+}
+
+.firstslide_wrapper, .how_to_go_wrapper, .how_to_registration_wrapper,
+.every_form_wrapper{
+    background: #fff;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    border-radius: 1vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    width: 30vw;
+    margin: 0 auto;
+    position: relative;
+}
+
+.input_block{
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+    width: 80%;
+    margin: 0 auto;
+    
+}
+
+.input_block input{
+    border: 0.1vw solid black;
+    border-radius: 0.4vw;
+    padding: 1vw;
+    font-size: 1vw;
+}
+
+.head{
+    width: 80%;
+    margin: 0 auto;
+    font-size: 2vw;
+    margin-bottom: 1vw;
+}
+.button_to_choice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    border: 0.1vw solid black;
+    border-radius: 0.6vw;
+    color: black;
+    width: 80%;
+    margin: 0 auto;
+    transition: color 0.7s ease; /* Добавим анимацию цвета текста */
+}
+
+.button_to_choice:hover {
+    color: white; /* Изменение цвета текста при наведении */
+    background-color: black; /* Изменение цвета фона при наведении */
+    cursor: pointer;
+}
+
+
+
+
+
+.question{
+    width: 24vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: right;
+    padding-top: 1vw;
+    display: flex;
+    gap: 0.4vw;
+}
+
+.just_go{
+    border-bottom: 0.1vw solid black;
+    
+}
+.just_go:hover{
+    cursor: pointer;
+}
+
+.button_back_wrapper{
+    object-fit: cover;
+    
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    padding-left: 0.8vw;
+    padding-right: 0.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.1vw solid black;
+    border-radius: 0.3vw;
+
+}
+
+.button_back{
+    position: absolute;
+    left: 31vw;
+    top: 17vw;
+    cursor: pointer;
+}
+
+.button_back_wrapper img{
+    width: 100%;
+    height: 100%;
+}
+
+
+#make_passwordID,
+#regisrtation_manegmentID,
+#how_to_registrationID,
+#how_to_goID,
+#firstslideId{
+    display: none;
+}
+
