@@ -1,23 +1,21 @@
-package main
+package domain
 
 import (
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"time"
 )
 
 // Company представляет управляющую компанию
+// Company представляет управляющую компанию
 type Company struct {
 	gorm.Model
-	Name string `gorm:"size:255;not null;uniqueIndex"`
-
-	Address string `gorm:"size:255;not null;"`
-	City    string `gorm:"size:100;not null"`
-
-	Users        []User     `gorm:"foreignKey:CompanyID"`
-	Appeals      []Appeal   `gorm:"foreignKey:CompanyID"`
-	StatisticsID uint       `gorm:"unique"`
-	Statistics   Statistics `gorm:"foreignKey:StatisticsID"`
+	Name         string      `gorm:"size:255;not null;uniqueIndex"`
+	Address      string      `gorm:"size:255;not null"`
+	City         string      `gorm:"size:100;not null"`
+	Users        []User      `gorm:"foreignKey:CompanyID"`
+	Appeals      []Appeal    `gorm:"foreignKey:CompanyID"`
+	StatisticsID *uint       // Изменено на *uint
+	Statistics   *Statistics `gorm:"foreignKey:StatisticsID"`
 }
 
 // User представляет собой структуру для хранения информации о пользователе.
@@ -33,7 +31,8 @@ type User struct {
 	Address    string `gorm:"size:255"`
 
 	UserType  UserType
-	CompanyID uint `gorm:"not null;index"`
+	CompanyID uint    `gorm:"not null;index"`
+	Company   Company `gorm:"foreignKey:CompanyID"` // Добавлено поле Company
 }
 
 // UserType представляет тип пользователя.
@@ -86,7 +85,7 @@ const (
 // Feedback представляет собой структуру для хранения информации об обратной связи.
 type Feedback struct {
 	gorm.Model
-	AppealID uuid.UUID `gorm:"not null;unique;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	AppealID uint `gorm:"not null;unique;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 
 	Rating      int       `gorm:"type:integer;not null"`
 	Comment     string    `gorm:"size:1000"`
@@ -97,7 +96,7 @@ type Feedback struct {
 // Statistics представляет собой структуру для хранения обобщенной статистики.
 type Statistics struct {
 	gorm.Model
-	CompanyID uuid.UUID `gorm:"not null;unique;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
+	CompanyID uint `gorm:"not null;unique;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 
 	ActiveAppealsCount int           `gorm:"not null"`
 	AvgResponseTime    time.Duration `gorm:"not null"`

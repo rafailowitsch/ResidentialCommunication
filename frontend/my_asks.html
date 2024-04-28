@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./my_asks.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>reg_or_signin</title>
+</head>
+<body>
+    <div class="main_block">
+        <div class="maim_block_wrapper">
+            <div class="img-block">
+                <div class="img-block-img">
+                    <img src="./assets/vhodimg.png" alt="">
+                </div>
+                <div class="text_on_img">
+                    <div class="text_on_img-block">
+                        <div class="head">Домовой онлайн</div>
+                        <div class="text">Что-то крутое</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vhod_block">
+                <div class="vhod_block_wrapper">
+                    <div class="vhod_block_head">Добро пожаловать!</div>
+                    <div class="make_choice">
+                        <div class="make_choice_wrapper">
+                            <div class="make_choice_item current current_txt">
+                                Войти
+                            </div>
+                            <div class="make_choice_item">
+                                Регистрация
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <div class="inputs-block">
+                            <div class="name_of_input">
+                                Почта
+                            </div>
+                            <input type="email" name="login" id="loginID" class="input" placeholder="Введите почту">
+                        </div>
+                        <div class="inputs-block">
+                            <div class="name_of_input">
+                                Пароль
+                            </div>
+                            <input type="password" name="login" id="passwordID" class="input" placeholder="Пароль">
+                            <div class="questions_block">
+                                <div class="accept" id="acceptArea">
+                                    <input type="checkbox" id="privacyPolicyCheckbox">
+                                    <label for="privacyPolicyCheckbox" class="acceptinfo">Запомнить меня</label>
+                                </div>
+                                <a class="zabili">
+                                    Забыли пароль?
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dalee">
+                        <div class="dalee_button disabled">Войти</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Регулярное выражение для проверки почты без кириллических символов
+        const EMAIL_REGEXP = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        // Функция для проверки валидности email
+        function isEmailValid(value) {
+            return !/[а-яА-ЯЁё]/.test(value) && EMAIL_REGEXP.test(value);
+        }
+    
+        const inputEmail = document.querySelector('#loginID');
+        const inputPassword = document.querySelector('#passwordID');
+        const acceptCheckbox = document.querySelector('#privacyPolicyCheckbox');
+    
+        function onEmailInput() {
+            if (isEmailValid(inputEmail.value)) {
+                inputEmail.style.borderColor = 'green';
+            } else {
+                inputEmail.style.borderColor = 'red';
+            }
+        }
+    
+        function onPasswordInput() {
+            if (inputPassword.value.length < 6) {
+                inputPassword.style.borderColor = 'red';
+            } else {
+                inputPassword.style.borderColor = '';
+            }
+        }
+    
+        function checkInputs() {
+            const isEmailValidValue = isEmailValid(inputEmail.value);
+            const isPasswordValid = inputPassword.value.length >= 6;
+            const isCheckboxChecked = acceptCheckbox.checked;
+    
+            if (!isEmailValidValue || !isPasswordValid || !isCheckboxChecked) {
+                document.querySelector('.dalee_button').classList.add('disabled');
+            } else {
+                document.querySelector('.dalee_button').classList.remove('disabled');
+            }
+        }
+    
+        inputEmail.addEventListener('input', function() {
+            onEmailInput();
+            checkInputs();
+        });
+        inputPassword.addEventListener('input', function() {
+            onPasswordInput();
+            checkInputs();
+        });
+        acceptCheckbox.addEventListener('change', checkInputs);
+    
+        inputEmail.addEventListener('keypress', function(event) {
+            const char = event.key;
+            const charCode = char.charCodeAt(0);
+            if (charCode >= 1040 && charCode <= 1103) {
+                event.preventDefault();
+            }
+        });
+    
+        inputPassword.addEventListener('keypress', function(event) {
+            const char = event.key;
+            const charCode = char.charCodeAt(0);
+            if (charCode >= 1040 && charCode <= 1103) {
+                event.preventDefault();
+            }
+        });
+    
+        document.querySelector('.dalee_button').addEventListener('click', function() {
+            if (!this.classList.contains('disabled')) {
+                // Действия, которые должны произойти при клике на активной кнопке
+                alert("Вы успешно вошли!");
+            } else {
+                alert("Пожалуйста, заполните все поля корректно.");
+            }
+        });
+    </script>
+</body>
+</html>
