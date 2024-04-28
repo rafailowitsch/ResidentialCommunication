@@ -6,7 +6,6 @@ import (
 )
 
 // Company представляет управляющую компанию
-// Company представляет управляющую компанию
 type Company struct {
 	gorm.Model
 	Name         string      `gorm:"size:255;not null;uniqueIndex"`
@@ -21,8 +20,8 @@ type Company struct {
 // User представляет собой структуру для хранения информации о пользователе.
 type User struct {
 	gorm.Model
-	Email    string `gorm:"size:100;uniqueIndex;not null"`
-	Password string `gorm:"size:255;not null"`
+	Email        string `gorm:"size:100;uniqueIndex;not null"`
+	PasswordHash string `gorm:"size:255;not null"`
 
 	FirstName  string `gorm:"size:255;not null"`
 	MiddleName string `gorm:"size:255"`
@@ -30,9 +29,15 @@ type User struct {
 	Age        int    `gorm:"default:0"`
 	Address    string `gorm:"size:255"`
 
-	UserType  UserType
-	CompanyID uint    `gorm:"not null;index"`
-	Company   Company `gorm:"foreignKey:CompanyID"` // Добавлено поле Company
+	UserType UserType
+	//CompanyID uint    `gorm:"not null;index"`
+	//Company   Company `gorm:"foreignKey:CompanyID"`
+}
+
+type Session struct {
+	gorm.Model
+	RefreshToken string    `gorm:"size:255;uniqueIndex;not null"`
+	ExpiresAt    time.Time `gorm:"not null"`
 }
 
 // UserType представляет тип пользователя.
@@ -98,6 +103,17 @@ type Statistics struct {
 	gorm.Model
 	CompanyID uint `gorm:"not null;unique;constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 
-	ActiveAppealsCount int           `gorm:"not null"`
-	AvgResponseTime    time.Duration `gorm:"not null"`
+	AppealsCount      int `gorm:"not null"`
+	AppealsAssessment int `gorm:"not null"`
+	//AvgResponseTime    time.Duration `gorm:"not null"`
+}
+
+type UserInput struct {
+	Email      string `json:"email"`
+	Password   string `json:"password"`
+	FirstName  string `json:"first_name"`
+	MiddleName string `json:"middle_name"`
+	LastName   string `json:"last_name"`
+	Age        int    `json:"age"`
+	Address    string `json:"address"`
 }

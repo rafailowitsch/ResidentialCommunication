@@ -40,8 +40,9 @@ type Statistics interface {
 }
 
 type Repository struct {
+	UserRepo User
 }
 
-func NewRepository() *Repository {
-	return &Repository{}
+func NewRepository(userRepo User) *Repository {
+	return &Repository{UserRepo: userRepo}
 }
